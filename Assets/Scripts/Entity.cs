@@ -1,5 +1,5 @@
 public interface IEntity
 {
-    void Interact(IEntity other);
+    void Interact();
     void SetTile(Tile tile);
 }

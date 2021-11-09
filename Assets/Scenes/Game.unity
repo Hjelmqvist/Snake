@@ -166,7 +166,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 239b6aa9974b21f4685849306bdd00b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _tilePrefab: {fileID: 4124159514085256258, guid: f413183e473fc004abe898df27e89701, type: 3}
+  _tilePrefab: {fileID: 8334187022463132354, guid: f413183e473fc004abe898df27e89701, type: 3}
+  _fruitPrefabs: []
   _xSize: 10
   _ySize: 10
 --- !u!1 &519420028
@@ -205,7 +206,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_BackGroundColor: {r: 0.1981132, g: 0.1981132, b: 0.1981132, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -222,7 +223,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 6
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -245,13 +246,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
-  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 10, z: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &820929836
 GameObject:
   m_ObjectHideFlags: 0
@@ -281,12 +282,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22d8b47765df7eb418f77fab6d26c9c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _grid: {fileID: 0}
-  _headPrefab: {fileID: 4029351983878960262, guid: 4d3b1ec723c562b4685fc7a1cf1d40ce, type: 3}
-  _tailPrefab: {fileID: 4801103796812706144, guid: 45d4d82dd80f25d499331195b0ba9270, type: 3}
-  _startTailSize: 1
-  _startPosition: {x: 0, y: 0}
-  _startDirection: {x: 0, y: 0}
+  _grid: {fileID: 476230600}
+  _headPrefab: {fileID: 3412006338150662456, guid: 4d3b1ec723c562b4685fc7a1cf1d40ce, type: 3}
+  _tailPrefab: {fileID: 2507855072938508570, guid: 4751da1c7ac62f546a8bb258151d5702, type: 3}
+  _startTailSize: 5
+  _startPosition: {x: 5, y: 5}
+  _startDirection: {x: 0, y: -1}
 --- !u!4 &820929838
 Transform:
   m_ObjectHideFlags: 0

@@ -1,42 +1,34 @@
 using UnityEngine;
 using Hjelmqvist.Collections.Generic;
 
-public class SnakeController : MonoBehaviour, IEntity
+public class SnakeController : MonoBehaviour
 {
     [SerializeField] GridManager _grid;
     [SerializeField] SnakePart _headPrefab;
     [SerializeField] SnakePart _tailPrefab;
 
-    [Header("Start settings"), Space(10)]
+    [Space(10)]
     [SerializeField, Min(2)] int _startTailSize = 1;
     [SerializeField] Vector2Int _startPosition;
     [SerializeField] Vector2Int _startDirection;
 
-    Vector2Int _currentPosition;
-    Vector2Int _currentDirection;
+    Vector2Int _lastDirection;
+    Vector2Int _previousLastPosition;
 
     LinkedList<SnakePart> _snake = new LinkedList<SnakePart>();
 
     private void Start()
     {
         _snake.Clear();
-        AddPart( _headPrefab );
+        AddPart( _headPrefab, _startPosition );
         for (int i = 0; i < _startTailSize; i++)
-            AddPart( _tailPrefab );
+            AddPart( _tailPrefab, _startPosition - _startDirection * (i + 1) );
     }
 
-    private void AddPart(SnakePart prefab)
+    private void AddPart(SnakePart prefab, Vector2Int position)
     {
-        var lastNode = _snake.Last;
         SnakePart part = Instantiate( prefab );
-        Tile tile = null;
-
-        if (lastNode == null)
-            tile = _grid.GetTile( _startPosition );
-        else
-        {
-
-        }
+        Tile tile = _grid.GetTile( position);
 
         part.SetTile( tile );
         _snake.AddLast( part );
@@ -45,22 +37,52 @@ public class SnakeController : MonoBehaviour, IEntity
     public void Move(Vector2Int direction)
     {
         // Can't move directly backwards
-        if (direction == -_currentDirection)
+        if (direction == -_lastDirection)
             return;
 
-        _currentPosition += direction;
-        _currentDirection = direction;
+        // Get the previous position of the head and the tile to move the head to
+        var current = _snake.First;
+        Vector2Int previousPosition = current.Value.Position;
+        Tile movedToTile = _grid.GetTile( previousPosition + direction );
+        _previousLastPosition = _snake.Last.Value.Position;
 
+        // Move tail pieces to the previous piece old position
+        current = current.Next;
+        while (current != null)
+        {
+            Vector2Int temp = current.Value.Position;
+            current.Value.SetTile( _grid.GetTile( previousPosition ) );
+            previousPosition = temp;
+            current = current.Next;
+        }
 
+        // Interact with tile before moving head to it
+        movedToTile.Interact();
+        _snake.First.Value.SetTile( movedToTile );
+        _lastDirection = direction;
     }
 
-    public void Interact(IEntity other)
+    private void OnEnable()
     {
-        throw new System.NotImplementedException();
+        Fruit.OnFruitEaten += OnFruitEaten;
+        SnakePart.OnSnakeDied += OnSnakeDied;
     }
 
-    public void SetTile(Tile tile)
+
+    private void OnDisable()
     {
-        throw new System.NotImplementedException();
+        Fruit.OnFruitEaten -= OnFruitEaten;
+        SnakePart.OnSnakeDied -= OnSnakeDied;
+    }
+
+    void OnFruitEaten(int points)
+    {
+        AddPart( _tailPrefab, _previousLastPosition );
+    }
+
+    void OnSnakeDied()
+    {
+        // Stop movement
+        Debug.Log( "Snek dieded!" );
     }
 }

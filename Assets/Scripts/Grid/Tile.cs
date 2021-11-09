@@ -6,13 +6,11 @@ public class Tile : MonoBehaviour, IPathable
     IEntity _currentEntity;
 
     public Vector2Int Position { get; private set; }
-
+    public bool IsEmpty => _currentEntity == null;
     public bool IsWalkable() => true;
 
     public void Enter(IEntity entity)
     {
-        if (_currentEntity != null)
-            _currentEntity.Interact( entity );
         _currentEntity = entity;
     }
 
@@ -20,6 +18,12 @@ public class Tile : MonoBehaviour, IPathable
     {
         if (_currentEntity == entity)
             _currentEntity = null;
+    }
+
+    public void Interact()
+    {
+        if (_currentEntity != null)
+            _currentEntity.Interact( );
     }
 
     public void SetPosition(Vector2Int position)

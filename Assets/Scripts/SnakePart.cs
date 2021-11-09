@@ -2,25 +2,24 @@ using UnityEngine;
 
 public class SnakePart : MonoBehaviour, IEntity
 {
-    Transform _part;
     Tile _currentTile;
 
-    public SnakePart(Transform part, Tile tile)
-    {
-        _part = part;
-        _currentTile = tile;
-    }
+    public Vector2Int Position => _currentTile != null ? _currentTile.Position : Vector2Int.zero;
 
-    public void Interact(IEntity other)
+    public delegate void SnakeDied();
+    public static SnakeDied OnSnakeDied;
+
+    public void Interact()
     {
-        // Lost
+        OnSnakeDied?.Invoke();
     }
 
     public void SetTile(Tile tile)
     {
-        _currentTile.Exit(this);
+        if (_currentTile != null)
+            _currentTile.Exit(this);
         tile.Enter( this );
-        _part.position = tile.transform.position;
+        transform.position = tile.transform.position;
         _currentTile = tile;
     }
 }

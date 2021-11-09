@@ -4,13 +4,18 @@ public class Fruit : MonoBehaviour, IEntity
 {
     [SerializeField] int _points = 100;
 
-    public void Interact(IEntity other)
+    public delegate void FruitEaten(int points);
+    public static FruitEaten OnFruitEaten;
+
+    public void Interact()
     {
-        // Add points to score
+        OnFruitEaten?.Invoke( _points );
+        Destroy( gameObject );
     }
 
     public void SetTile(Tile tile)
     {
-        
+        tile.Enter( this );
+        transform.position = tile.transform.position;
     }
 }
