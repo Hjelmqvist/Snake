@@ -17,7 +17,7 @@ public class SnakeController : MonoBehaviour
 
     LinkedList<SnakePart> _snake = new LinkedList<SnakePart>();
 
-    private void Start()
+    public void Spawn()
     {
         _snake.Clear();
         AddPart( _headPrefab, _startPosition );

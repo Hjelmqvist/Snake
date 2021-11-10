@@ -4,6 +4,7 @@ public class SnakePart : MonoBehaviour, IEntity
 {
     Tile _currentTile;
 
+    public bool IsWalkable => false; // Used for pathfinding
     public Vector2Int Position => _currentTile != null ? _currentTile.Position : Vector2Int.zero;
 
     public delegate void SnakeDied();

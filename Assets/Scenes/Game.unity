@@ -123,6 +123,59 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &31207153
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 31207155}
+  - component: {fileID: 31207154}
+  m_Layer: 0
+  m_Name: PlayerInput
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &31207154
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 31207153}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: abd560e5f9773bd42a6fe344585cf90a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _snake: {fileID: 820929837}
+  _inputs:
+  - keyCode: 119
+    direction: {x: 0, y: 1}
+  - keyCode: 97
+    direction: {x: -1, y: 0}
+  - keyCode: 115
+    direction: {x: 0, y: -1}
+  - keyCode: 100
+    direction: {x: 1, y: 0}
+--- !u!4 &31207155
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 31207153}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 2.53278}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &476230598
 GameObject:
   m_ObjectHideFlags: 0
@@ -166,10 +219,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 239b6aa9974b21f4685849306bdd00b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _snake: {fileID: 820929837}
   _tilePrefab: {fileID: 8334187022463132354, guid: f413183e473fc004abe898df27e89701, type: 3}
-  _fruitPrefabs: []
+  _fruitPrefabs:
+  - {fileID: 4613985875371559498, guid: c9c59e5b8b182104b9fc88cefc1576d3, type: 3}
+  - {fileID: -5091090390124025550, guid: 7f118c0691d75ba4a8eec9ed5fc5247a, type: 3}
+  - {fileID: 2478604864244565104, guid: a8c0d38a108301f45af2417b97a2858c, type: 3}
   _xSize: 10
   _ySize: 10
+  OnPointsAdded:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -285,7 +345,7 @@ MonoBehaviour:
   _grid: {fileID: 476230600}
   _headPrefab: {fileID: 3412006338150662456, guid: 4d3b1ec723c562b4685fc7a1cf1d40ce, type: 3}
   _tailPrefab: {fileID: 2507855072938508570, guid: 4751da1c7ac62f546a8bb258151d5702, type: 3}
-  _startTailSize: 5
+  _startTailSize: 9
   _startPosition: {x: 5, y: 5}
   _startDirection: {x: 0, y: -1}
 --- !u!4 &820929838

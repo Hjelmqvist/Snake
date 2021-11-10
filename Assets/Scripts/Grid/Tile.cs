@@ -7,7 +7,7 @@ public class Tile : MonoBehaviour, IPathable
 
     public Vector2Int Position { get; private set; }
     public bool IsEmpty => _currentEntity == null;
-    public bool IsWalkable() => true;
+    public bool IsWalkable() => _currentEntity == null || _currentEntity.IsWalkable;
 
     public void Enter(IEntity entity)
     {

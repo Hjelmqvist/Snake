@@ -4,6 +4,8 @@ public class Fruit : MonoBehaviour, IEntity
 {
     [SerializeField] int _points = 100;
 
+    public bool IsWalkable => true; // Used for pathfinding
+
     public delegate void FruitEaten(int points);
     public static FruitEaten OnFruitEaten;
 

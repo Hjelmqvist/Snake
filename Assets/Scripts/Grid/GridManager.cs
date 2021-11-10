@@ -3,6 +3,7 @@ using UnityEngine.Events;
 
 public class GridManager : MonoBehaviour
 {
+    [SerializeField] SnakeController _snake;
     [SerializeField] Tile _tilePrefab;
     [SerializeField] Fruit[] _fruitPrefabs;
 
@@ -13,6 +14,8 @@ public class GridManager : MonoBehaviour
     GameObject _gridParent;
     int _score;
 
+    public Vector2Int FruitPosition { get; private set; }
+
     const string GRID_PARENT_NAME = "Grid Parent";
 
     public UnityEvent<ScoreArgs> OnPointsAdded;
@@ -21,10 +24,7 @@ public class GridManager : MonoBehaviour
     {
         SetupGrid();
         SetCameraPosition();
-    }
-
-    private void Start()
-    {
+        _snake.Spawn();
         PlaceFruit();
     }
 
@@ -51,6 +51,7 @@ public class GridManager : MonoBehaviour
         Tile tile = GetRandomEmptyTile();
         Fruit fruit = Instantiate( _fruitPrefabs[0] );
         fruit.SetTile( tile );
+        FruitPosition = tile.Position;
     }
 
     private Tile GetRandomEmptyTile()
