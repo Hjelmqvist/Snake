@@ -345,9 +345,10 @@ MonoBehaviour:
   _grid: {fileID: 476230600}
   _headPrefab: {fileID: 3412006338150662456, guid: 4d3b1ec723c562b4685fc7a1cf1d40ce, type: 3}
   _tailPrefab: {fileID: 2507855072938508570, guid: 4751da1c7ac62f546a8bb258151d5702, type: 3}
-  _startTailSize: 9
+  _startTailSize: 2
   _startPosition: {x: 5, y: 5}
   _startDirection: {x: 0, y: -1}
+  _timeBetweenMoves: 0.2
 --- !u!4 &820929838
 Transform:
   m_ObjectHideFlags: 0

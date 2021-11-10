@@ -17,7 +17,7 @@ public class PlayerInput : MonoBehaviour
         foreach (MovementKey input in _inputs)
         {
             if (Input.GetKeyDown( input.keyCode ))
-                _snake.Move( input.direction );
+                _snake.ChangeDirection( input.direction );
         }
     }
 }
