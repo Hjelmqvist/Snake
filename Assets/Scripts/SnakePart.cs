@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class SnakePart : MonoBehaviour, IEntity
@@ -7,12 +8,16 @@ public class SnakePart : MonoBehaviour, IEntity
     public bool IsWalkable => false; // Used for pathfinding
     public Vector2Int Position => _currentTile != null ? _currentTile.Position : Vector2Int.zero;
 
-    public delegate void SnakeDied();
-    public static SnakeDied OnSnakeDied;
+    Action OnSnakeDeath;
 
     public void Interact()
     {
-        OnSnakeDied?.Invoke();
+        OnSnakeDeath?.Invoke();
+    }
+
+    public void SetDeathCallback(Action snakeDiedCallback)
+    {
+        OnSnakeDeath = snakeDiedCallback;
     }
 
     public void SetTile(Tile tile)

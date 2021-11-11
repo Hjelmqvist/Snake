@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class Fruit : MonoBehaviour, IEntity
@@ -6,13 +7,17 @@ public class Fruit : MonoBehaviour, IEntity
 
     public bool IsWalkable => true; // Used for pathfinding
 
-    public delegate void FruitEaten(int points);
-    public static FruitEaten OnFruitEaten;
+    Action<int> OnFruitEaten;
 
     public void Interact()
     {
         OnFruitEaten?.Invoke( _points );
         Destroy( gameObject );
+    }
+
+    public void SetEatenCallback(Action<int> onEatenCallback)
+    {
+        OnFruitEaten = onEatenCallback;
     }
 
     public void SetTile(Tile tile)

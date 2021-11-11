@@ -12,13 +12,10 @@ public class GridManager : MonoBehaviour
 
     Tile[,] _grid = null;
     GameObject _gridParent;
-    int _score;
-
-    public Vector2Int FruitPosition { get; private set; }
 
     const string GRID_PARENT_NAME = "Grid Parent";
 
-    public UnityEvent<ScoreArgs> OnPointsAdded;
+    public UnityEvent<int> OnFruitEaten;
 
     private void Awake()
     {
@@ -48,10 +45,13 @@ public class GridManager : MonoBehaviour
 
     private void PlaceFruit()
     {
+        if (_fruitPrefabs.Length == 0)
+            return;
+
         Tile tile = GetRandomEmptyTile();
-        Fruit fruit = Instantiate( _fruitPrefabs[0] );
+        Fruit fruit = Instantiate( _fruitPrefabs[Random.Range(0, _fruitPrefabs.Length)] );
+        fruit.SetEatenCallback( Fruit_OnFruitEaten );
         fruit.SetTile( tile );
-        FruitPosition = tile.Position;
     }
 
     private Tile GetRandomEmptyTile()
@@ -100,26 +100,9 @@ public class GridManager : MonoBehaviour
         return _grid[position.x, position.y];
     }
 
-    private void OnEnable() => Fruit.OnFruitEaten += OnFruitEaten;
-
-    private void OnDisable() => Fruit.OnFruitEaten -= OnFruitEaten;
-
-    private void OnFruitEaten(int points)
-    {
+    public void Fruit_OnFruitEaten(int points)
+    {  
+        OnFruitEaten?.Invoke( points );
         PlaceFruit();
-        _score += points;
-        OnPointsAdded.Invoke( new ScoreArgs( points, _score ) );
-    }
-}
-
-public readonly struct ScoreArgs
-{
-    public readonly int PointsAdded { get; }
-    public readonly int Score { get; }
-
-    public ScoreArgs(int pointsAdded, int score)
-    {
-        PointsAdded = pointsAdded;
-        Score = score;
     }
 }

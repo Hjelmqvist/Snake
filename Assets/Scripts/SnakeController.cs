@@ -1,5 +1,6 @@
 using UnityEngine;
 using Hjelmqvist.Collections.Generic;
+using UnityEngine.Events;
 
 public class SnakeController : MonoBehaviour
 {
@@ -21,6 +22,8 @@ public class SnakeController : MonoBehaviour
 
     LinkedList<SnakePart> _snake = new LinkedList<SnakePart>();
 
+    public UnityEvent OnSnakeDeath;
+
     private void Awake()
     {
         _currentDirection = _startDirection;
@@ -39,6 +42,7 @@ public class SnakeController : MonoBehaviour
     private void AddPart(SnakePart prefab, Vector2Int position)
     {
         SnakePart part = Instantiate( prefab );
+        part.SetDeathCallback( SnakePart_OnSnakeDeath );
         part.SetTile( _grid.GetTile( position ) );
         _snake.AddLast( part );
     }
@@ -60,7 +64,7 @@ public class SnakeController : MonoBehaviour
         // Get the previous position of the head and the tile to move the head to
         var current = _snake.First;
         Vector2Int previousPosition = current.Value.Position;
-        Tile nextHeadTile = _grid.GetTile( previousPosition + _currentDirection );     
+        Tile nextHeadTile = _grid.GetTile( previousPosition + _currentDirection );
 
         // Move tail pieces to the previous piece old position
         current = current.Next;
@@ -68,7 +72,7 @@ public class SnakeController : MonoBehaviour
         {
             Vector2Int currentPosition = current.Value.Position;
             current.Value.SetTile( _grid.GetTile( previousPosition ) );
-           
+
             current = current.Next;
             previousPosition = currentPosition;
         }
@@ -86,28 +90,15 @@ public class SnakeController : MonoBehaviour
             AddPart( _tailPrefab, _startPosition - _startDirection * (i + 1) );
     }
 
-    private void OnEnable()
-    {
-        Fruit.OnFruitEaten += OnFruitEaten;
-        SnakePart.OnSnakeDied += OnSnakeDied;
-    }
-
-
-    private void OnDisable()
-    {
-        Fruit.OnFruitEaten -= OnFruitEaten;
-        SnakePart.OnSnakeDied -= OnSnakeDied;
-    }
-
-    void OnFruitEaten(int points)
+    public void OnFruitEaten()
     {
         AddPart( _tailPrefab, _previousLastPosition );
     }
 
-    void OnSnakeDied()
+    public void SnakePart_OnSnakeDeath()
     {
         // Stop movement
-        Debug.Log( "Snek dieded!" );
         enabled = false;
+        OnSnakeDeath.Invoke();
     }
 }
