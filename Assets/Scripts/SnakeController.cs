@@ -42,7 +42,7 @@ public class SnakeController : MonoBehaviour
     private void AddPart(SnakePart prefab, Vector2Int position)
     {
         SnakePart part = Instantiate( prefab );
-        part.SetDeathCallback( SnakePart_OnSnakeDeath );
+        part.SetInteractionCallback( SnakePart_OnSnakeDeath );
         part.SetTile( _grid.GetTile( position ) );
         _snake.AddLast( part );
     }
@@ -77,8 +77,6 @@ public class SnakeController : MonoBehaviour
             previousPosition = currentPosition;
         }
 
-        // Interact with tile before moving head so that the tiles contents doesnt change first
-        nextHeadTile.Interact();
         _snake.First.Value.SetTile( nextHeadTile );
     }
 
@@ -95,7 +93,7 @@ public class SnakeController : MonoBehaviour
         AddPart( _tailPrefab, _previousLastPosition );
     }
 
-    public void SnakePart_OnSnakeDeath()
+    public void SnakePart_OnSnakeDeath(SnakePart part)
     {
         // Stop movement
         enabled = false;

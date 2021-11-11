@@ -49,8 +49,8 @@ public class GridManager : MonoBehaviour
             return;
 
         Tile tile = GetRandomEmptyTile();
-        Fruit fruit = Instantiate( _fruitPrefabs[Random.Range(0, _fruitPrefabs.Length)] );
-        fruit.SetEatenCallback( Fruit_OnFruitEaten );
+        Fruit fruit = Instantiate( _fruitPrefabs[Random.Range( 0, _fruitPrefabs.Length )] );
+        fruit.SetInteractionCallback( Fruit_OnFruitEaten );
         fruit.SetTile( tile );
     }
 
@@ -80,8 +80,7 @@ public class GridManager : MonoBehaviour
 
         camera.transform.position = pos;
 
-        // Update orthographic size to fit all the tiles
-        // :thinking:
+        // TODO: Update orthographic size to fit all the tiles :thinking:
     }
 
     public Tile GetTile(Vector2Int position)
@@ -100,9 +99,10 @@ public class GridManager : MonoBehaviour
         return _grid[position.x, position.y];
     }
 
-    public void Fruit_OnFruitEaten(int points)
-    {  
-        OnFruitEaten?.Invoke( points );
+    public void Fruit_OnFruitEaten(Fruit fruit)
+    {
+        OnFruitEaten?.Invoke( fruit.Points );
+        Destroy( fruit.gameObject );
         PlaceFruit();
     }
 }

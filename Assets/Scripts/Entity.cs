@@ -4,40 +4,38 @@ using UnityEngine;
 public interface IEntity
 {
     bool IsWalkable { get; }
+    Vector2Int Position { get; }
     void Interact();
     void SetTile(Tile tile);
 }
 
-// TODO: Abstract class for entities instead of interface
-//public abstract class Entity : MonoBehaviour
-//{
-//    Tile _currentTile;
-//    Action<Entity> OnInteraction;
+public abstract class Entity<T> : MonoBehaviour, IEntity where T : Entity<T>
+{
+    [SerializeField] bool _isWalkable = true;
 
-//    public abstract bool IsWalkable { get; }
+    protected Tile _currentTile;
+    Action<T> OnInteraction;
 
-//    public void Interact()
-//    {
-//        OnInteraction?.Invoke( this );
-//    }
-    
-//    public void SetInteractionCallback(Action<Entity> interactionCallback)
-//    {
-//        OnInteraction = interactionCallback;
-//    }
+    public bool IsWalkable => _isWalkable;
+    public Vector2Int Position => _currentTile != null ? _currentTile.Position : Vector2Int.zero;
 
-//    public virtual void SetTile(Tile tile)
-//    {
-//        //if (_currentTile != null)
-//        //    _currentTile.Exit( this );
-//        //tile.Enter( this );
-//        _currentTile = tile;
+    public void Interact()
+    {
+        OnInteraction?.Invoke( this as T );
+    }
 
-//        transform.position = tile.transform.position;
-//    }
-//}
+    public void SetInteractionCallback(Action<T> interactionCallback)
+    {
+        OnInteraction = interactionCallback;
+    }
 
-//public class FruitEntity : Entity
-//{
-//    public override bool IsWalkable => true;
-//}
+    public virtual void SetTile(Tile tile)
+    {
+        if (_currentTile != null)
+            _currentTile.Exit( this );
+        tile.Enter( this );
+        _currentTile = tile;
+
+        transform.position = tile.transform.position;
+    }
+}

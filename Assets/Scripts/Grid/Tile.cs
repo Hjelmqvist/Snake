@@ -23,7 +23,7 @@ public class Tile : MonoBehaviour, IPathable
     public void Interact()
     {
         if (_currentEntity != null)
-            _currentEntity.Interact( );
+            _currentEntity.Interact();
     }
 
     public void SetPosition(Vector2Int position)
