@@ -25,14 +25,6 @@ public class ScoreManager : MonoBehaviour
         }
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown( KeyCode.Space ))
-        {
-            SaveNewHighscore( "Mathias" );
-        }
-    }
-
     private string GetHighscorePath()
     {
         return Path.Combine(Application.persistentDataPath, HIGHSCOREPATH);
