@@ -18,24 +18,28 @@ public class AIController : MonoBehaviour
         if (_timeSinceLastMove >= _timeBetweenMoves)
         {
             _timeSinceLastMove -= _timeBetweenMoves;
-
-            Tile currentTile = _grid.GetTile( _snake.CurrentPosition );
-
-            if (Pathfinding.AStar.TryGetPath( currentTile, _fruitManager.FruitTile, out List<Vector2Int> path ))
-            {
-                if (path.Count > 1)
-                    _snake.ChangeDirection( path[1] - path[0] );
-            }
-            else
-            {
-                // Move to any connecting walkable tile
-                foreach (IPathable pathable in currentTile.Connections)
-                {
-                    if (pathable.IsWalkable())
-                        _snake.ChangeDirection( pathable.Position - currentTile.Position );
-                }
-            }
+            ChangeDirection();
             _snake.Move();
+        }
+    }
+
+    private void ChangeDirection()
+    {
+        Tile currentTile = _grid.GetTile( _snake.CurrentPosition );
+
+        if (Pathfinding.AStar.TryGetPath( currentTile, _fruitManager.FruitTile, out List<Vector2Int> path ))
+        {
+            if (path.Count > 1)
+                _snake.ChangeDirection( path[1] - path[0] );
+        }
+        else
+        {
+            // Move to any connecting walkable tile
+            foreach (IPathable pathable in currentTile.Connections)
+            {
+                if (pathable.IsWalkable())
+                    _snake.ChangeDirection( pathable.Position - currentTile.Position );
+            }
         }
     }
 }

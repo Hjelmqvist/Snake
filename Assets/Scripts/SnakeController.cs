@@ -9,7 +9,7 @@ public class SnakeController : MonoBehaviour
     [SerializeField] SnakePart _tailPrefab;
 
     [Space( 10 )]
-    [SerializeField, Min( 1 )] int _startTailSize = 1;
+    [SerializeField, Min( 2 )] int _startTailSize = 2;
     [SerializeField] Vector2Int _startPosition;
     [SerializeField] Vector2Int _startDirection;
 
@@ -41,7 +41,6 @@ public class SnakeController : MonoBehaviour
         Vector2Int directionToSecond = headNode.Next.Value.Position - headNode.Value.Position;
         if (direction == directionToSecond)
             return;
-
         _currentDirection = direction;
     }
 

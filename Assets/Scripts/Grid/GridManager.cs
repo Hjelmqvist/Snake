@@ -25,6 +25,13 @@ public class GridManager : MonoBehaviour
         OnGridCreated.Invoke();
     }
 
+    private void Update()
+    {
+        UnityEngine.Profiling.Profiler.BeginSample( "AStar bottom left -> top right" );
+        Pathfinding.AStar.TryGetPath( _grid[0, 0], _grid[_xSize - 1, _ySize - 1], out _ );
+        UnityEngine.Profiling.Profiler.EndSample();
+    }
+
     private void CreateGrid()
     {
         if (_gridParent != null)
@@ -89,16 +96,8 @@ public class GridManager : MonoBehaviour
     public Tile GetTile(Vector2Int position)
     {
         // Screen wrapping
-        if (position.x < 0)
-            position.x += _xSize;
-        else if (position.x >= _xSize)
-            position.x -= _xSize;
-
-        if (position.y < 0)
-            position.y += _ySize;
-        else if (position.y >= _ySize)
-            position.y -= _ySize;
-
-        return _grid[position.x, position.y];
+        int x = (position.x + _xSize) % _xSize;
+        int y = (position.y + _ySize) % _ySize;
+        return _grid[x, y];
     }
 }
