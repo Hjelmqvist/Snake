@@ -1,31 +1,31 @@
+using Hjelmqvist.Pathfinding;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
 public class GridManager : MonoBehaviour
 {
-    [SerializeField] SnakeController _snake;
     [SerializeField] Tile _tilePrefab;
-    [SerializeField] Fruit[] _fruitPrefabs;
-
     [SerializeField] int _xSize = 10;
     [SerializeField] int _ySize = 10;
+    [SerializeField] Vector2Int[] _connectionDirections = { Vector2Int.up, Vector2Int.down, Vector2Int.left, Vector2Int.right };
 
     Tile[,] _grid = null;
     GameObject _gridParent;
 
     const string GRID_PARENT_NAME = "Grid Parent";
 
-    public UnityEvent<int> OnFruitEaten;
+    public UnityEvent OnGridCreated;
 
     private void Awake()
     {
-        SetupGrid();
+        CreateGrid();
+        SetupConnections();
         SetCameraPosition();
-        _snake.Spawn();
-        PlaceFruit();
+        OnGridCreated.Invoke();
     }
 
-    private void SetupGrid()
+    private void CreateGrid()
     {
         if (_gridParent != null)
             Destroy( _gridParent );
@@ -43,18 +43,21 @@ public class GridManager : MonoBehaviour
         }
     }
 
-    private void PlaceFruit()
+    private void SetupConnections()
     {
-        if (_fruitPrefabs.Length == 0)
-            return;
-
-        Tile tile = GetRandomEmptyTile();
-        Fruit fruit = Instantiate( _fruitPrefabs[Random.Range( 0, _fruitPrefabs.Length )] );
-        fruit.SetInteractionCallback( Fruit_OnFruitEaten );
-        fruit.SetTile( tile );
+        for (int x = 0; x < _xSize; x++)
+        {
+            for (int y = 0; y < _ySize; y++)
+            {
+                List<IPathable> connections = new List<IPathable>();
+                foreach (Vector2Int dir in _connectionDirections)
+                    connections.Add( GetTile( new Vector2Int( x + dir.x, y + dir.y ) ) );
+                _grid[x, y].SetConnections( connections );
+            }
+        }
     }
 
-    private Tile GetRandomEmptyTile()
+    public Tile GetRandomEmptyTile()
     {
         Tile tile = null;
 
@@ -97,12 +100,5 @@ public class GridManager : MonoBehaviour
             position.y -= _ySize;
 
         return _grid[position.x, position.y];
-    }
-
-    public void Fruit_OnFruitEaten(Fruit fruit)
-    {
-        OnFruitEaten?.Invoke( fruit.Points );
-        Destroy( fruit.gameObject );
-        PlaceFruit();
     }
 }

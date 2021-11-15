@@ -35,7 +35,10 @@ public class ScoreManager : MonoBehaviour
         SetCurrentScore(_currentPoints + points);
     }
 
-    public void OnSnakeDeath()
+    /// <summary>
+    /// Only opens the panel if the current points are higher than the highscores
+    /// </summary>
+    public void OpenSaveScorePanel()
     {
         if (_currentPoints > _highscore.Points)
             _saveScorePanel.SetActive( true );

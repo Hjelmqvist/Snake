@@ -9,34 +9,22 @@ public class SnakeController : MonoBehaviour
     [SerializeField] SnakePart _tailPrefab;
 
     [Space( 10 )]
-    [SerializeField, Min( 2 )] int _startTailSize = 1;
+    [SerializeField, Min( 1 )] int _startTailSize = 1;
     [SerializeField] Vector2Int _startPosition;
     [SerializeField] Vector2Int _startDirection;
 
-    [Space( 10 )]
-    [SerializeField] float _timeBetweenMoves = 0.2f;
-
     Vector2Int _currentDirection;
-    Vector2Int _previousLastPosition;
-    float _timeSinceLastMove = 0;
+    Vector2Int _previousLastPosition;   
 
     LinkedList<SnakePart> _snake = new LinkedList<SnakePart>();
+
+    public Vector2Int CurrentPosition => _snake.First.Value.Position;
 
     public UnityEvent OnSnakeDeath;
 
     private void Awake()
     {
         _currentDirection = _startDirection;
-    }
-
-    private void Update()
-    {
-        _timeSinceLastMove += Time.deltaTime;
-        if (_timeSinceLastMove >= _timeBetweenMoves)
-        {
-            _timeSinceLastMove -= _timeBetweenMoves;
-            Move();
-        }
     }
 
     private void AddPart(SnakePart prefab, Vector2Int position)
@@ -88,12 +76,12 @@ public class SnakeController : MonoBehaviour
             AddPart( _tailPrefab, _startPosition - _startDirection * (i + 1) );
     }
 
-    public void OnFruitEaten()
+    public void AddTailPiece()
     {
         AddPart( _tailPrefab, _previousLastPosition );
     }
 
-    public void SnakePart_OnSnakeDeath(SnakePart part)
+    private void SnakePart_OnSnakeDeath(SnakePart part)
     {
         // Stop movement
         enabled = false;
