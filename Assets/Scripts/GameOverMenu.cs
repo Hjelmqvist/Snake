@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class LoseMenu : MonoBehaviour
+public class GameOverMenu : MonoBehaviour
 {
     public void RestartGame()
     {

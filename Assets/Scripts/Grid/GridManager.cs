@@ -88,7 +88,7 @@ public class GridManager : MonoBehaviour
 
     public Tile GetTile(Vector2Int position)
     {
-        // Wrap around to the other side
+        // Screen wrapping
         if (position.x < 0)
             position.x += _xSize;
         else if (position.x >= _xSize)

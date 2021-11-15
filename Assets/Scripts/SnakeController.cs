@@ -29,7 +29,7 @@ public class SnakeController : MonoBehaviour
 
     private void AddPart(SnakePart prefab, Vector2Int position)
     {
-        SnakePart part = Instantiate( prefab );
+        SnakePart part = Instantiate( prefab, transform );
         part.SetInteractionCallback( SnakePart_OnSnakeDeath );
         part.SetTile( _grid.GetTile( position ) );
         _snake.AddLast( part );
