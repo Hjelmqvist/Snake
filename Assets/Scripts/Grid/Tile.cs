@@ -12,30 +12,15 @@ public class Tile : MonoBehaviour, IPathable
     public bool IsEmpty => _currentEntity == null; 
     public bool IsWalkable() => _currentEntity == null || _currentEntity.IsWalkable; // Used for pathfinding
 
-    public void Enter(IEntity entity)
-    {
-        _currentEntity = entity;
-    }
-
-    public void Exit(IEntity entity)
-    {
-        if (_currentEntity == entity)
-            _currentEntity = null;
-    }
-
     public void Interact()
     {
         if (_currentEntity != null)
             _currentEntity.Interact();
     }
 
-    public void SetConnections(List<IPathable> connections)
-    {
-        _connections = connections;
-    }
+    public void SetConnections(List<IPathable> connections) => _connections = connections;
 
-    public void SetPosition(Vector2Int position)
-    {
-        Position = position;
-    }
+    public void SetEntity(IEntity entity) => _currentEntity = entity;
+
+    public void SetPosition(Vector2Int position) => Position = position;
 }

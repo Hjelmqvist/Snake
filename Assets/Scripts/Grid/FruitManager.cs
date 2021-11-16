@@ -15,11 +15,10 @@ public class FruitManager : MonoBehaviour
         if (_fruitPrefabs.Length == 0)
             return;
 
-        Tile tile = _grid.GetRandomEmptyTile();
-        FruitTile = tile;
+        FruitTile = _grid.GetRandomEmptyTile();
         Fruit fruit = Instantiate( _fruitPrefabs[Random.Range( 0, _fruitPrefabs.Length )] );
         fruit.SetInteractionCallback( Fruit_OnFruitEaten );
-        fruit.SetTile( tile );
+        fruit.SetTile( FruitTile );
     }
 
     public void Fruit_OnFruitEaten(Fruit fruit)
