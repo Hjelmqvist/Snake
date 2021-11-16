@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class PlayerInput : MonoBehaviour
 {
-    [SerializeField] SnakeController _snake;
+    [SerializeField] SnakeManager _snake;
     [SerializeField] MovementKey[] _inputs;
 
     [Space( 10 )]

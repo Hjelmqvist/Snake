@@ -1,7 +1,6 @@
 using TMPro;
 using UnityEngine;
 using System.IO;
-using System.Collections.Generic;
 
 public class ScoreManager : MonoBehaviour
 {
@@ -25,7 +24,7 @@ public class ScoreManager : MonoBehaviour
         }
     }
 
-    private string GetHighscorePath()
+    public static string GetHighscorePath()
     {
         return Path.Combine(Application.persistentDataPath, HIGHSCOREPATH);
     }
@@ -73,7 +72,7 @@ public class ScoreManager : MonoBehaviour
     }
 }
 
-public class Score
+public struct Score
 {
     public string Name;
     public int Points;

@@ -2,7 +2,7 @@ using UnityEngine;
 using Hjelmqvist.Collections.Generic;
 using UnityEngine.Events;
 
-public class SnakeController : MonoBehaviour
+public class SnakeManager : MonoBehaviour
 {
     [SerializeField] GridManager _grid;
     [SerializeField] SnakePart _headPrefab;
@@ -15,17 +15,11 @@ public class SnakeController : MonoBehaviour
 
     Vector2Int _currentDirection;
     Vector2Int _previousLastPosition;   
-
     LinkedList<SnakePart> _snake = new LinkedList<SnakePart>();
 
     public Vector2Int CurrentPosition => _snake.First.Value.Position;
 
     public UnityEvent OnSnakeDeath;
-
-    private void Awake()
-    {
-        _currentDirection = _startDirection;
-    }
 
     private void AddPart(SnakePart prefab, Vector2Int position)
     {
@@ -35,6 +29,9 @@ public class SnakeController : MonoBehaviour
         _snake.AddLast( part );
     }
 
+    /// <summary>
+    /// Will not change if direction is directly backwards
+    /// </summary>
     public void ChangeDirection(Vector2Int direction)
     {
         var headNode = _snake.First;
@@ -49,27 +46,27 @@ public class SnakeController : MonoBehaviour
         _previousLastPosition = _snake.Last.Value.Position;
 
         // Get the previous position of the head and the tile to move the head to
-        var current = _snake.First;
-        Vector2Int previousPosition = current.Value.Position;
+        var head = _snake.First;
+        Vector2Int previousPosition = head.Value.Position;
         Tile nextHeadTile = _grid.GetTile( previousPosition + _currentDirection );
 
         // Move tail pieces to the previous piece old position
-        current = current.Next;
+        var current = head.Next;
         while (current != null)
         {
             Vector2Int currentPosition = current.Value.Position;
             current.Value.SetTile( _grid.GetTile( previousPosition ) );
 
-            current = current.Next;
             previousPosition = currentPosition;
+            current = current.Next;  
         }
 
-        _snake.First.Value.SetTile( nextHeadTile );
+        head.Value.SetTile( nextHeadTile );
     }
 
     public void Spawn()
     {
-        _snake.Clear();
+        _currentDirection = _startDirection;
         AddPart( _headPrefab, _startPosition );
         for (int i = 0; i < _startTailSize; i++)
             AddPart( _tailPrefab, _startPosition - _startDirection * (i + 1) );

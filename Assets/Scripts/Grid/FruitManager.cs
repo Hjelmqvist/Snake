@@ -23,7 +23,7 @@ public class FruitManager : MonoBehaviour
 
     public void Fruit_OnFruitEaten(Fruit fruit)
     {
-        OnFruitEaten?.Invoke( fruit.Points );
+        OnFruitEaten.Invoke( fruit.Points );
         Destroy( fruit.gameObject );
         SpawnFruit();
     }

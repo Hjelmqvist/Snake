@@ -6,7 +6,7 @@ public class AIController : MonoBehaviour
 {
     [SerializeField] GridManager _grid;
     [SerializeField] FruitManager _fruitManager;
-    [SerializeField] SnakeController _snake;
+    [SerializeField] SnakeManager _snake;
 
     [Space( 10 )]
     [SerializeField] float _timeBetweenMoves = 0.2f;
@@ -29,7 +29,8 @@ public class AIController : MonoBehaviour
 
         if (Pathfinding.AStar.TryGetPath( currentTile, _fruitManager.FruitTile, out List<Vector2Int> path ))
         {
-            if (path.Count > 1)
+            // If there's at least two positions then move towards the second position
+            if (path.Count >= 2)
                 _snake.ChangeDirection( path[1] - path[0] );
         }
         else

@@ -25,20 +25,11 @@ public class GridManager : MonoBehaviour
         OnGridCreated.Invoke();
     }
 
-    private void Update()
-    {
-        UnityEngine.Profiling.Profiler.BeginSample( "AStar bottom left -> top right" );
-        Pathfinding.AStar.TryGetPath( _grid[0, 0], _grid[_xSize - 1, _ySize - 1], out _ );
-        UnityEngine.Profiling.Profiler.EndSample();
-    }
-
     private void CreateGrid()
     {
-        if (_gridParent != null)
-            Destroy( _gridParent );
         _gridParent = new GameObject( GRID_PARENT_NAME );
-
         _grid = new Tile[_xSize, _ySize];
+
         for (int x = 0; x < _xSize; x++)
         {
             for (int y = 0; y < _ySize; y++)
@@ -64,6 +55,20 @@ public class GridManager : MonoBehaviour
         }
     }
 
+    private void SetCameraPosition()
+    {
+        Camera camera = Camera.main;
+        Vector3 pos = camera.transform.position;
+
+        // Set position to the middle of the board
+        pos.x = (_xSize + 1) / 2f;
+        pos.y = (_ySize + 1) / 2f;
+
+        camera.transform.position = pos;
+
+        // TODO: Update orthographic size to fit all the tiles :thinking:
+    }
+
     public Tile GetRandomEmptyTile()
     {
         Tile tile = null;
@@ -79,25 +84,11 @@ public class GridManager : MonoBehaviour
         return tile;
     }
 
-    private void SetCameraPosition()
-    {
-        Camera camera = Camera.main;
-        Vector3 pos = camera.transform.position;
-
-        // Set position to the middle of the board
-        pos.x = (_xSize + 1) / 2f;
-        pos.y = (_ySize + 1) / 2f;
-
-        camera.transform.position = pos;
-
-        // TODO: Update orthographic size to fit all the tiles :thinking:
-    }
-
-    public Tile GetTile(Vector2Int position)
+    public Tile GetTile(Vector2Int pos)
     {
         // Screen wrapping
-        int x = (position.x + _xSize) % _xSize;
-        int y = (position.y + _ySize) % _ySize;
-        return _grid[x, y];
+        pos.x = (pos.x + _xSize) % _xSize;
+        pos.y = (pos.y + _ySize) % _ySize;
+        return _grid[pos.x, pos.y];
     }
 }
