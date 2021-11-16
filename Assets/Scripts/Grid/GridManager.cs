@@ -10,12 +10,13 @@ public class GridManager : MonoBehaviour
     [SerializeField] int _ySize = 10;
     [SerializeField] Vector2Int[] _connectionDirections = { Vector2Int.up, Vector2Int.down, Vector2Int.left, Vector2Int.right };
 
+    [Space( 20 )]
+    public UnityEvent OnGridCreated;
+
     Tile[,] _grid = null;
     GameObject _gridParent;
 
     const string GRID_PARENT_NAME = "Grid Parent";
-
-    public UnityEvent OnGridCreated;
 
     private void Awake()
     {

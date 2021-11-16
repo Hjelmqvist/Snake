@@ -26,8 +26,8 @@ public abstract class Entity<T> : MonoBehaviour, IEntity where T : Entity<T>
     public virtual void SetTile(Tile tile)
     {
         if (_currentTile != null)
-            _currentTile.SetEntity( null );
-        tile.SetEntity( this );
+            _currentTile.Exit( this );
+        tile.Enter( this );
         _currentTile = tile;
 
         transform.position = tile.transform.position;

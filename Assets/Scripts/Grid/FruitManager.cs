@@ -6,9 +6,10 @@ public class FruitManager : MonoBehaviour
     [SerializeField] GridManager _grid;
     [SerializeField] Fruit[] _fruitPrefabs;
 
-    public Tile FruitTile { get; private set; }
-
+    [Space( 20 )]
     public UnityEvent<int> OnFruitEaten;
+
+    public Tile FruitTile { get; private set; }
 
     public void SpawnFruit()
     {

@@ -13,13 +13,14 @@ public class SnakeManager : MonoBehaviour
     [SerializeField] Vector2Int _startPosition;
     [SerializeField] Vector2Int _startDirection;
 
+    [Space( 20 )]
+    public UnityEvent OnSnakeDeath;
+
     Vector2Int _currentDirection;
     Vector2Int _previousLastPosition;   
     LinkedList<SnakePart> _snake = new LinkedList<SnakePart>();
 
     public Vector2Int CurrentPosition => _snake.First.Value.Position;
-
-    public UnityEvent OnSnakeDeath;
 
     private void AddPart(SnakePart prefab, Vector2Int position)
     {
