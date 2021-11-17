@@ -229,6 +229,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7536191caf7e3f4583e656ca7af4aa3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _mainMenuSceneIndex: 0
 --- !u!114 &104054717
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1429,7 +1430,7 @@ GameObject:
   - component: {fileID: 820929838}
   - component: {fileID: 820929837}
   m_Layer: 0
-  m_Name: SnakeController
+  m_Name: SnakeManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1570,6 +1571,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7536191caf7e3f4583e656ca7af4aa3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _mainMenuSceneIndex: 0
 --- !u!1 &1042483954
 GameObject:
   m_ObjectHideFlags: 0
