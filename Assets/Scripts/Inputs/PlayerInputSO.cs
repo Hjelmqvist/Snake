@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "New Player Input", menuName = "Snake Input/Player Input")]
-public class PlayerInputSO : SnakeInputSO
+public class PlayerInputSO : InputSO
 {
     [SerializeField] MovementKey[] _inputs = 
     {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu( fileName = "New AI Input", menuName = "Snake Input/AI Input" )]
-public class AIInputSO : SnakeInputSO
+public class AIInputSO : InputSO
 {
     public override void UpdateValues()
     {

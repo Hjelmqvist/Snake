@@ -15,7 +15,7 @@ public class SnakeManager : MonoBehaviour
     [SerializeField] Vector2Int _startDirection;
 
     [Space( 10 )]
-    [SerializeField] SnakeInputSO _inputs;
+    [SerializeField] InputSO _inputs;
     [SerializeField] float _timeBetweenMoves = 0.2f;
     float _timeSinceLastMove = 0;
 

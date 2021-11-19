@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public abstract class SnakeInputSO : ScriptableObject
+public abstract class InputSO : ScriptableObject
 {
     [SerializeField] protected Vector2Int _currentDirection = Vector2Int.down;
     protected GridManager _grid;
