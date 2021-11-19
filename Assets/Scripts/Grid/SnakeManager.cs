@@ -5,6 +5,7 @@ using UnityEngine.Events;
 public class SnakeManager : MonoBehaviour
 {
     [SerializeField] GridManager _grid;
+    [SerializeField] FruitManager _fruitManager;
     [SerializeField] SnakePart _headPrefab;
     [SerializeField] SnakePart _tailPrefab;
 
@@ -12,6 +13,11 @@ public class SnakeManager : MonoBehaviour
     [SerializeField, Min( 2 )] int _startTailSize = 2;
     [SerializeField] Vector2Int _startPosition;
     [SerializeField] Vector2Int _startDirection;
+
+    [Space( 10 )]
+    [SerializeField] SnakeInputSO _inputs;
+    [SerializeField] float _timeBetweenMoves = 0.2f;
+    float _timeSinceLastMove = 0;
 
     [Space( 20 )]
     public UnityEvent OnSnakeDeath;
@@ -21,6 +27,25 @@ public class SnakeManager : MonoBehaviour
     LinkedList<SnakePart> _snake = new LinkedList<SnakePart>();
 
     public Vector2Int CurrentPosition => _snake.First.Value.Position;
+
+    private void Awake()
+    {
+        // Instantiate a new instance of the SnakeInputs to not do changes to the ScriptableObjects.
+        _inputs = Instantiate( _inputs );
+        _inputs.SetReferences( _grid, _fruitManager, this );
+    }
+
+    private void Update()
+    {
+        _inputs.UpdateValues();
+        _timeSinceLastMove += Time.deltaTime;
+        if (_timeSinceLastMove >= _timeBetweenMoves)
+        {
+            _timeSinceLastMove -= _timeBetweenMoves;
+            _currentDirection = _inputs.GetDirection();
+            Move();
+        }
+    }
 
     private void AddPart(SnakePart prefab, Vector2Int position)
     {

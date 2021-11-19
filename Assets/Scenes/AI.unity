@@ -698,6 +698,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7536191caf7e3f4583e656ca7af4aa3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _mainMenuSceneIndex: 0
 --- !u!114 &393261433
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -792,53 +793,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 393261430}
   m_CullTransparentMesh: 1
---- !u!1 &428468232
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 428468234}
-  - component: {fileID: 428468233}
-  m_Layer: 0
-  m_Name: AIController
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &428468233
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 428468232}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6f26d16f37340b64b923c04f236ea8b6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _grid: {fileID: 2114913278}
-  _fruitManager: {fileID: 1882193079}
-  _snake: {fileID: 1566090191}
-  _timeBetweenMoves: 0.1
---- !u!4 &428468234
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 428468232}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1566090192}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &619322538
 GameObject:
   m_ObjectHideFlags: 0
@@ -1360,60 +1314,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1206888203}
   m_CullTransparentMesh: 1
---- !u!1 &1233588346
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1233588348}
-  - component: {fileID: 1233588347}
-  m_Layer: 0
-  m_Name: PlayerInput
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!114 &1233588347
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1233588346}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: abd560e5f9773bd42a6fe344585cf90a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _snake: {fileID: 1566090191}
-  _inputs:
-  - keyCode: 119
-    direction: {x: 0, y: 1}
-  - keyCode: 97
-    direction: {x: -1, y: 0}
-  - keyCode: 115
-    direction: {x: 0, y: -1}
-  - keyCode: 100
-    direction: {x: 1, y: 0}
-  _timeBetweenMoves: 0.5
---- !u!4 &1233588348
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1233588346}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 2.53278}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1566090192}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1249170928
 GameObject:
   m_ObjectHideFlags: 0
@@ -1464,6 +1364,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7536191caf7e3f4583e656ca7af4aa3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _mainMenuSceneIndex: 0
 --- !u!1 &1280529579
 GameObject:
   m_ObjectHideFlags: 0
@@ -1778,11 +1679,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _grid: {fileID: 2114913278}
+  _fruitManager: {fileID: 1882193079}
   _headPrefab: {fileID: 8463788368076094727, guid: 4d3b1ec723c562b4685fc7a1cf1d40ce, type: 3}
   _tailPrefab: {fileID: 488983064977006340, guid: 4751da1c7ac62f546a8bb258151d5702, type: 3}
   _startTailSize: 2
   _startPosition: {x: 5, y: 5}
   _startDirection: {x: 0, y: -1}
+  _inputs: {fileID: 11400000, guid: af13638feb1b6744db91049c6164e661, type: 2}
+  _timeBetweenMoves: 0.1
   OnSnakeDeath:
     m_PersistentCalls:
       m_Calls:
@@ -1798,30 +1702,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 1233588346}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 428468232}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!4 &1566090192
 Transform:
   m_ObjectHideFlags: 0
@@ -1832,9 +1712,7 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 1233588348}
-  - {fileID: 428468234}
+  m_Children: []
   m_Father: {fileID: 386889114}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
