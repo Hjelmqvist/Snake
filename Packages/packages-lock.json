@@ -1,19 +1,5 @@
 {
   "dependencies": {
-    "com.hjelmqvist.collections": {
-      "version": "https://github.com/Hjelmqvist/Collections.git",
-      "depth": 0,
-      "source": "git",
-      "dependencies": {},
-      "hash": "606d9b068e5b10264fb7813b5c4a5ce2cd7675b7"
-    },
-    "com.hjelmqvist.pathfinding": {
-      "version": "https://github.com/Hjelmqvist/Pathfinding.git",
-      "depth": 0,
-      "source": "git",
-      "dependencies": {},
-      "hash": "f48b37ee478ba027ce61f82958f82c8806f6fe7c"
-    },
     "com.unity.2d.animation": {
       "version": "5.0.7",
       "depth": 0,

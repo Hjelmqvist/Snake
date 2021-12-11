@@ -1,7 +1,5 @@
 {
   "dependencies": {
-    "com.hjelmqvist.collections": "https://github.com/Hjelmqvist/Collections.git",
-    "com.hjelmqvist.pathfinding": "https://github.com/Hjelmqvist/Pathfinding.git",
     "com.unity.2d.animation": "5.0.7",
     "com.unity.2d.pixel-perfect": "4.0.1",
     "com.unity.2d.psdimporter": "4.1.0",
