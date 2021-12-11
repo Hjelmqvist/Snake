@@ -37,7 +37,7 @@ public class ScoreManager : MonoBehaviour
     /// <summary>
     /// Only opens the panel if the current points are higher than the highscores
     /// </summary>
-    public void OpenSaveScorePanel()
+    public void TryOpenSaveScorePanel()
     {
         if (_currentPoints > _highscore.Points)
             _saveScorePanel.SetActive( true );
